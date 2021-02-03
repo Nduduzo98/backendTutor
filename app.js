@@ -59,17 +59,17 @@ app.get('/students',(req,res) => {
     })
 })
 
-app.delete('',(req,res) => {
+app.delete('/:studentno',(req,res) => {
 
     pool.getConnection((err, connection)=>{
         if(err)throw err
         console.log('connected as id '+ connection.threadId)
 
-        connection.query('DELETE from students WHERE id = ?',[req.params.Title], (err,rows)=>{
+        connection.query('DELETE from students WHERE studentno = ?',[req.params.studentno], (err,rows)=>{
             connection.release() //return the connection to pool
 
             if(!err){
-                res.send([req.params.Title] +' Has been deleted')
+                res.send([req.params.studentno] +' Has been deleted')
             }
             else{
                 console.log(err)
